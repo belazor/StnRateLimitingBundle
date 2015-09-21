@@ -20,9 +20,28 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('stn_rate_limiting');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->booleanNode('enable')
+                    ->defaultTrue()
+                ->end()
+                ->integerNode('limit')
+                    ->isRequired()
+                    ->min(0)
+                ->end()
+                ->integerNode('ttl')
+                    ->isRequired()
+                    ->min(1)
+                ->end()
+                ->scalarNode('key_prefix')
+                    ->defaultValue('RL')
+                ->end()
+                ->integerNode('key_length')
+                    ->defaultValue(8)
+                    ->min(4)
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }
