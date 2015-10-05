@@ -39,10 +39,12 @@ class RateLimitingRequest implements RateLimitingRequestInterface
         $cacheServer = $client;
         $cacheKey = $this->generateCacheKey($request, $configs);
 
-        // Set expire time
-        if (1 === $times = $cacheServer->incr($cacheKey)) {
-            $cacheServer->expire($cacheKey, $configs['ttl']);
-        }
+        // Get times
+        $cacheServer
+            ->getProfile()
+            ->defineCommand('countrequest', 'Stn\RateLimitingBundle\Redis\Command\CountRequestCommand')
+        ;
+        $times = $cacheServer->countrequest($cacheKey, (integer) $configs['ttl']);
 
         $timezone = new \DateTimeZone('UTC');
         $dateTime = new \DateTime('now', $timezone);
