@@ -1,6 +1,7 @@
 {
     "name": "stn/stn-rate-limiting-bundle",
     "description": "The bundle for managing request rate limiting",
+    "type" : "symfony-bundle",
     "license": "MIT",
     "authors": [
         {
@@ -10,9 +11,10 @@
     ],
     "homepage": "https://github.com/Santino-Wu/StnRateLimitingBundle",
     "keywords" : [ "symfony", "api", "bundle", "rate-limiting" ],
+    "license": "MIT",
     "require": {
         "php": ">=5.3.9",
-        "predis/predis": "1.0.3",
+        "predis/predis": "1.0.3"
     },
     "target-dir" : "Stn/RateLimitingBundle",
     "autoload" : {
