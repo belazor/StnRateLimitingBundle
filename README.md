@@ -2,6 +2,8 @@
 
 The bundle to manage request rate limiting for Symfony.
 
+[![Build Status Images](https://travis-ci.org/Santino-Wu/StnRateLimitingBundle.svg)](https://travis-ci.org/Santino-Wu/StnRateLimitingBundle)
+
 ## Configuration
 
 ```
