@@ -108,7 +108,9 @@ class StnRateLimitingExtensionTest extends \PHPUnit_Framework_TestCase
         $this->defaultConfig['stn_rate_limiting'][ $key ] = $value;
         $this->extension->load($this->defaultConfig, $this->container);
 
-        $this->assertSame($value, $this->container->getParameter('stn_rate_limiting')[ $key ]);
+        $parameter = $this->container->getParameter('stn_rate_limiting');
+
+        $this->assertSame($value, $parameter[ $key ]);
     }
 
     /**
