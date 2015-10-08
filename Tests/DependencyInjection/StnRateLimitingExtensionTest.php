@@ -14,10 +14,19 @@ use Stn\RateLimitingBundle\DependencyInjection\StnRateLimitingExtension;
  */
 class StnRateLimitingExtensionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ContainerBuilder
+     */
     private $container;
 
+    /**
+     * @var StnRateLimitingExtension
+     */
     private $extension;
 
+    /**
+     * @var array
+     */
     private $defaultConfig;
 
     protected function setUp()
@@ -73,10 +82,12 @@ class StnRateLimitingExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->extension->load($requiredConfig, $this->container);
 
-        $this->assertCount(5, $this->container->getParameter('stn_rate_limiting'));
-        $this->assertTrue($this->container->getParameter('stn_rate_limiting')['enable']);
-        $this->assertSame('RL', $this->container->getParameter('stn_rate_limiting')['key_prefix']);
-        $this->assertSame(8, $this->container->getParameter('stn_rate_limiting')['key_length']);
+        $parameter = $this->container->getParameter('stn_rate_limiting');
+
+        $this->assertCount(5, $parameter);
+        $this->assertTrue($parameter['enable']);
+        $this->assertSame('RL', $parameter['key_prefix']);
+        $this->assertSame(8, $parameter['key_length']);
     }
 
     /**
