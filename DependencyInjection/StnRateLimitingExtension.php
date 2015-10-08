@@ -26,5 +26,28 @@ class StnRateLimitingExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $this->initClient($container, $config);
+    }
+
+    /**
+     * Initialize redis client
+     *
+     * @param ContainerBuilder $container
+     * @param array $config
+     */
+    private function initClient(ContainerBuilder $container, Array $config)
+    {
+        $client = $container->getDefinition('stn_rate_limiting.cache.redis_client');
+
+        if (true === isset($config['client']['dsn'])) {
+            $dsn = (string) $config['client']['dsn'];
+
+            $client->addArgument($dsn);
+        }
+
+        if (true == isset($config['client']['pass']) && '' !== $pass = (string) $config['client']['pass']) {
+            $client->addMethodCall('auth', array( $pass ));
+        }
     }
 }

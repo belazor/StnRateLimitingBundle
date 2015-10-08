@@ -40,6 +40,17 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue(8)
                     ->min(4)
                 ->end()
+                ->arrayNode('client')
+                    ->children()
+                        ->scalarNode("dsn")
+                            ->isRequired()
+                            ->defaultValue('tcp://127.0.0.1:6379')
+                        ->end()
+                        ->scalarNode("pass")
+                            ->defaultValue(null)
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 
