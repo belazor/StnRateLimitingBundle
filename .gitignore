@@ -1,6 +1,8 @@
 # Common
 .*
 !.travis.yml
+composer.lock
+vendor
 
 # Bundle
 /Controller
