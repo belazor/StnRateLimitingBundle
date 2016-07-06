@@ -14,15 +14,14 @@ php:
 matrix:
   include:
     - php: 5.6
-      env: SYMFONY_VERSION=2.6.*
+      env: SYMFONY_VERSION=2.8.*
     - php: 5.6
-      env: SYMFONY_VERSION=2.7.*@dev
+      env: SYMFONY_VERSION=3.0.*
     - php: 5.6
-      env: SYMFONY_VERSION=2.8.*@dev
+      env: SYMFONY_VERSION=3.1.*@dev
   allow_failures:
     - php: hhvm
-    - env: SYMFONY_VERSION=2.7.*@dev
-      env: SYMFONY_VERSION=2.8.*@dev
+    - env: SYMFONY_VERSION=3.1.*@dev
 
 before_script:
   - composer self-update

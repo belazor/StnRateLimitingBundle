@@ -6,9 +6,9 @@ services:
     stn_rate_limiting.listener.rate_limiting:
         class: Stn\RateLimitingBundle\EventListener\RateLimitingListener
         calls:
-            - [ setCacheServer, [ @stn_rate_limiting.cache.redis_client ] ]
-            - [ setContainer, [ @service_container ]]
-            - [ setReader, [ @annotation_reader ]]
+            - [ setCacheServer, [ '@stn_rate_limiting.cache.redis_client' ] ]
+            - [ setContainer, [ '@service_container' ]]
+            - [ setReader, [ '@annotation_reader' ]]
         tags:
             # After `RouterListener::onKernelRequest()` which contains a priority 32,
             # since this bundle requires the controller and method information.
