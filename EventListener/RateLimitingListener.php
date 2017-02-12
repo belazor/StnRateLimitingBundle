@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Util\ClassUtils;
 use Psr\Log\LoggerInterface;
@@ -13,6 +14,9 @@ use Predis\ClientInterface;
 
 use Stn\RateLimitingBundle\Annotation\RateLimiting;
 use Stn\RateLimitingBundle\Request\RateLimitingRequest;
+
+use Stn\RateLimitingBundle\Component\ApiProblem;
+use Stn\RateLimitingBundle\Component\ApiProblemResponse;
 
 /**
  * Listener for handling rate limiting request
@@ -166,10 +170,9 @@ class RateLimitingListener extends ContainerAware
      */
     private function createRateLimitExceededResponse($clientIp)
     {
-        return new Response(
-            "API rate limit exceeded for {$clientIp}.",
-            Response::HTTP_FORBIDDEN,
-            array( 'Content-Type' => 'text/plain' )
+        // Generate a new response
+        return ApiProblemResponse(
+            new ApiProblem(429, 'Too Many Requests')
         );
     }
 }
