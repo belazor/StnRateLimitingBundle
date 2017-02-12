@@ -2,7 +2,7 @@
 
 namespace Stn\RateLimitingBundle\EventListener;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ use Stn\RateLimitingBundle\Component\ApiProblemResponse;
  *
  * @author Santino Wu <santinowu.wsq@gmail.com>
  */
-class RateLimitingListener extends ContainerAware
+class RateLimitingListener extends Container
 {
     const RATE_LIMITING_REQUEST = 'stn_rate_limiting_request';
     const RATE_LIMITING_ANNOTATION = 'Stn\RateLimitingBundle\Annotation\RateLimiting';
