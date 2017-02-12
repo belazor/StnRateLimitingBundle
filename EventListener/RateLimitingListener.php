@@ -104,6 +104,9 @@ class RateLimitingListener implements ContainerAwareInterface
             $clientIp = $event->getRequest()->getClientIp();
             $event->setResponse($this->createRateLimitExceededResponse($clientIp));
 
+            // Display the reset and retry-after headers
+            $event->getResponse()->headers->set('Retry-After', ($rateLimitingRequest->getResetAt() - time()));
+            $event->getResponse()->headers->set('X-RateLimit-Reset', $rateLimitingRequest->getResetAt());
             return;
         }
 
@@ -174,7 +177,7 @@ class RateLimitingListener implements ContainerAwareInterface
     private function createRateLimitExceededResponse($clientIp)
     {
         // Generate a new response
-        return ApiProblemResponse(
+        return new ApiProblemResponse(
             new ApiProblem(429, 'Too Many Requests')
         );
     }
